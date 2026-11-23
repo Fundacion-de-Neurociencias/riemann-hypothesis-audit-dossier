@@ -21,7 +21,7 @@ This repository publishes the complete **verification evidence, cryptographic ce
 
 | Target | Scale & Form | Kernel Compilation (`v4.33.1`) | Static Soundness | Structural / Logical Completeness | Epistemic Verdict |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Alpöge RH / Dirichlet GRH** | `175,187` `.lean` files (`17.37M` lines); `28`-line external TCB | **`lake build Main` `exit_code=0`** (`127,812s` / ~35.5h on Apple M4 Max 64 GB); `183,889` `.olean` | **0** `sorry`/`axiom`/`native_decide`/`unsafe`; `#print axioms` = `[propext, Classical.choice, Quot.sound]` | Canonical `Mathlib` `RiemannHypothesis` & `DirichletCharacter.LFunction`; ERH unformalized in note | **`VALID_OPAQUE`** (`Epistemia Risk: 0.245` on 5 theorems; `SUSPEND_JUDGMENT` on ERH prose) |
+| **Alpöge RH / Dirichlet GRH** | `175,187` `.lean` files (`17.37M` lines); `28`-line external TCB | **`lake build Main` `exit_code=0`** (`127,812s`) + **`leanchecker --fresh Main` `exit_code=0`** (`26,898s`) on Apple M4 Max 64 GB; `183,889` `.olean` | **0** `sorry`/`axiom`/`native_decide`/`unsafe`; `#print axioms` = `[propext, Classical.choice, Quot.sound]` | Canonical `Mathlib` `RiemannHypothesis` & `DirichletCharacter.LFunction`; ERH unformalized in note | **`VALID_OPAQUE`** (`Epistemia Risk: 0.245` on 5 theorems; `SUSPEND_JUDGMENT` on ERH prose) |
 | **Masullo Hecke GRH** | `940`-page PDF (`6.76 MB`), `0` lines of Lean | Not formalized (`0%`) | 0% formal proof | **Critical gap in Chapter 13** (pp. 521–522): empty `13.1`–`13.2`, blank conclusive `Theorem 13.3.1.2`, `19` `??` refs | **`SUSPEND_JUDGMENT`** (`CLAIMED` draft; `Epistemia Risk: 0.850`) |
 
 ---
@@ -36,6 +36,7 @@ This repository publishes the complete **verification evidence, cryptographic ce
 - **[Certificates & Logs](certificates/)**:
   - [alpoge_rh_kernel_certificate.json](certificates/alpoge_rh_kernel_certificate.json) — Apple M4 Max compilation metrics, SHA-256 digests, and transparent verification limits.
   - [alpoge_rh_axioms.log](certificates/alpoge_rh_axioms.log) — Raw `#print axioms` trace (`SHA-256: 590d5252...`).
+  - [alpoge_rh_leanchecker_fresh.log](certificates/alpoge_rh_leanchecker_fresh.log) — Verbatim `lake env leanchecker --fresh Main` transitive replay log (`26,898s`, `exit_code=0`, `SHA-256: ff8ea3d0...`).
   - [alpoge_static_soundness_summary.json](certificates/alpoge_static_soundness_summary.json) — Full 175,187-file AST/soundness & statement-fidelity audit.
   - [alpoge_epistemic_spine_summary.json](certificates/alpoge_epistemic_spine_summary.json) — Stratified library counts, top-15 pivot modules, and 6 real barrier motifs.
   - [masullo_forensic_summary.json](certificates/masullo_forensic_summary.json) — Verbatim page/section gap audit of the 940-page PDF.
@@ -47,7 +48,7 @@ This repository publishes the complete **verification evidence, cryptographic ce
 ## Honest Limits & Open Escalation Gates
 
 We explicitly preserve epistemic humility where computational boundaries remain open:
-1. **Single-Kernel Certification (`leanprover/lean4:v4.33.1`) & `--fresh` Replay:** Clean `lake build Main` (`exit_code = 0`) and `#print axioms` confirm validity under the reference Lean C++ kernel. Default `lake env leanchecker Main` also exited `0` (verifying `Main.lean` against precompiled imports); full transitive `--fresh` replay was launched asynchronously on Apple M4 Max.
+1. **Lean `v4.33.1` Compilation & Transitive `--fresh` Replay (Completed):** Clean `lake build Main` (`127,812s`, `exit_code = 0`), `#print axioms`, and full transitive `lake env leanchecker --fresh Main` replay from `mkEmptyEnvironment` (`26,898s` / `7 h 28 min 18 s`, `exit_code = 0`, `SHA-256: ff8ea3d0...`) confirm type-theoretic soundness and rule out `.olean` corruption or environment hacking under the reference Lean C++ kernel.
 2. **External Second Kernel (`nanoda` / `lean4export`):** Independent Rust kernel `nanoda_bin` and `lean4export` compiled cleanly for `v4.33.1`, but single-threaded `lean4export Main` NDJSON export grew to `46.47 GB` on 64 GB unified memory, requiring termination before completion. Second-kernel replay remains open pending higher-memory hardware or sharded export.
 
 ---
