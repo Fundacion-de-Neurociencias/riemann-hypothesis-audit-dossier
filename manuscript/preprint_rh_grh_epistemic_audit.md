@@ -1,7 +1,6 @@
 # Independent Formal Verification, Epistemic Spine Cartography, and Comparative Auditing of Riemann Hypothesis Proof Claims
 
 **Author:** Manuel Menéndez-González  
-**Affiliations:** Fundación de Neurociencias, Oviedo, Spain; Medicine Department, University of Oviedo, Oviedo, Spain; Neurology Department, Hospital Universitario Central de Asturias (HUCA), Oviedo, Spain; Instituto de Investigación Sanitaria del Principado de Asturias (ISPA), Oviedo, Spain  
 **Public Verification Dossier:** <https://github.com/Fundacion-de-Neurociencias/riemann-hypothesis-audit-dossier>  
 **Automated Verification Platform:** CoResearcher (<https://github.com/Fundacion-de-Neurociencias/coresearcher>)
 
