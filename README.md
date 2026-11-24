@@ -47,9 +47,10 @@ This repository publishes the complete **verification evidence, cryptographic ce
 
 ## Honest Limits & Open Escalation Gates
 
-We explicitly preserve epistemic humility where computational boundaries remain open:
+We explicitly preserve epistemic humility where computational boundaries and kernel lineage distinctions remain open:
 1. **Lean `v4.33.1` Compilation & Transitive `--fresh` Replay (Completed):** Clean `lake build Main` (`127,812s`, `exit_code = 0`), `#print axioms`, and full transitive `lake env leanchecker --fresh Main` replay from `mkEmptyEnvironment` (`26,898s` / `7 h 28 min 18 s`, `exit_code = 0`, `SHA-256: ff8ea3d0...`) confirm type-theoretic soundness and rule out `.olean` corruption or environment hacking under the reference Lean C++ kernel.
-2. **External Second Kernel (`nanoda` / `lean4export`):** Independent Rust kernel `nanoda_bin` and `lean4export` compiled cleanly for `v4.33.1`, but single-threaded `lean4export Main` NDJSON export grew to `46.47 GB` on 64 GB unified memory, requiring termination before completion. Second-kernel replay remains open pending higher-memory hardware or sharded export.
+2. **Bounded-RAM `lean4lean` Module Replay (Active Streaming — `28,357 / 175,187` Cleared):** Using unmodified `digama0/lean4lean@67f63b0c` (`Lean4Lean.Replay.replayFromImports`, 3 workers × 10-module streaming chunks) directly on `.olean` binaries bypasses the monolithic ~`61.57 GB` export wall (`~15.47 GB` combined RSS, `88%` free system memory). As of `2026-11-24T05:19:45Z`, **`28,357 / 175,187`** modules (`616,173` declarations, `0` failures)—including `Statements` (`1/1`), `Lemmata` (`167/167`), `PositivityTheory` (`449/449`), `GroundTheory` (`8,507/8,507`), `Formalism` (`18,254/18,254`), and all `5` elevated-fuel `decide +kernel` modules (`SmallLoop` + `DyadicPrimeIntervals.Run1–Run4`)—have passed locally. **Open limits:** (i) remaining `ReciprocityTheory`, `CompanionTheory`, `Development`, and serial apex modules are still streaming; (ii) `lean4lean` is an external Lean-implemented port sharing C++ kernel design lineage rather than clean-room Rust/C reimplementations.
+3. **Clean-Room Flat-Export Checkers (`nanoda` / `con-leche`):** Independent clean-room replay remains open locally on `64 GB` RAM because single-threaded monolithic NDJSON export (`~61.57 GB` full archive) stalled at `46.47 GB` and full flat replay requires high-memory cluster hardware (`82.6–98.8 GiB`+ peak RAM).
 
 ---
 
