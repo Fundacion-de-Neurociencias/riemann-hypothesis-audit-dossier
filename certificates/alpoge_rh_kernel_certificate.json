@@ -1,5 +1,5 @@
 {
-  "certificate_version": "rh-grh-verification-certificate/v1.1.1",
+  "certificate_version": "rh-grh-verification-certificate/v1.2",
   "target": "alpoge-rh-2026-11-20",
   "audited_by": "CoResearcher (https://github.com/Fundacion-de-Neurociencias/coresearcher)",
   "source": {

@@ -1,5 +1,5 @@
 {
-  "dossier_verdicts_version": "comparative-epistemic-verdicts/v1.1",
+  "dossier_verdicts_version": "comparative-epistemic-verdicts/v1.2",
   "epistemic_scale_note": "Epistemia risk is normalized on [0.0, 1.0] where 0.0 denotes zero plausibility-evaluation decoupling and 1.0 denotes severe Epistemia risk.",
   "targets": {
     "alpoge_formalized_cones_5_theorems": {
